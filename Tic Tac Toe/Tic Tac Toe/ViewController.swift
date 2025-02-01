@@ -23,12 +23,20 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //         Do any additional setup after loading the view.
-        for i in 0..<9 {
-            let row = i / 3
-            let col = i % 3
-            squares[i].frame = CGRect(x:col * squareSize, y: row * squareSize,
-                                      width: squareSize, height: squareSize)
-            print("\(squares[i].frame.width)")
+        
+        if let myGridView = view.viewWithTag(100) {
+            let squareSize = Int(myGridView.frame.width / 3)
+            for i in 0..<9 {
+                let row = i / 3
+                let col = i % 3
+                squares[i].frame = CGRect(x:col * squareSize, y: row * squareSize,
+                                          width: squareSize, height: squareSize)
+                
+                print("sI: \(i) x: \(squares[i].frame.origin.x) y: \(squares[i].frame.origin.y)")
+                print("sI: \(i) xi: \(squares[i].frame.origin.x + squares[i].frame.width) yi: \(squares[i].frame.origin.y + squares[i].frame.height)")
+                print("")
+//                print("sI: \(i) w: \(squares[i].frame.width) h: \(squares[i].frame.height)")
+            }
         }
     }
     
