@@ -8,12 +8,65 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var squares: [UIView]!
-    @IBOutlet var ss: UIView!
+    @IBOutlet var squares: [UIView]! {
+        didSet {
+            print("Connected sss: \(squares.count)")
+            squares.forEach{ print("square tag: \($0.tag)")}
+        }
+    }
     
+    @IBOutlet var xLabel: UILabel!
+    @IBOutlet var oLabel: UILabel!
+    
+    
+    let squareSize = 120
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+//         Do any additional setup after loading the view.
+        for i in 0..<9 {
+            let row = i / 3
+            let col = i % 3
+            squares[i].frame = CGRect(x:col * squareSize, y: row * squareSize,
+                                      width: squareSize, height: squareSize)
+            print("\(squares[i].frame.width)")
+        }
+    }
+    
+    
+    
+    private func setupMyGestureRecognizers() {
+        xLabel.isUserInteractionEnabled = true
+        oLabel.isUserInteractionEnabled = true
+        
+        let xPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        let oPanGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        
+        xLabel.addGestureRecognizer(xPanGesture)
+        oLabel.addGestureRecognizer(oPanGesture)
+        
+    }
+    
+    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+        let panLabel = gesture.view!
+        let translation = gesture.translation(in: view)
+        
+        switch gesture.state {
+        case .began, .changed:
+            panLabel.center = CGPoint(
+                x: panLabel.center.x + translation.x,
+                y: panLabel.center.y + translation.y )
+            gesture.setTranslation(.zero, in: view)
+        case .ended:
+            checkForPlacementSquare(panLabel)
+        
+        default:
+            break
+        }
+    }
+    
+    
+    private func checkForPlacementSquare(_ panLabel: UIView) {
+        
     }
 
 

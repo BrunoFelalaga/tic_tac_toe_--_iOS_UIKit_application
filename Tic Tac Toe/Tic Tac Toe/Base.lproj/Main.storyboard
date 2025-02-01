@@ -11,68 +11,99 @@
         <!--View Controller-->
         <scene sceneID="YiY-xD-7Mt">
             <objects>
-                <viewController id="RbU-FG-FUe" sceneMemberID="viewController">
+                <viewController id="RbU-FG-FUe" customClass="ViewController" customModule="Tic_Tac_Toe" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CHd-Bt-J4b">
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhW-LS-h1Z" userLabel="square1">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <accessibility key="accessibilityConfiguration" label="square0">
-                                    <bool key="isElement" value="NO"/>
-                                </accessibility>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RNA-Sz-NvR" userLabel="square2">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOM-Qw-cnT" customClass="GridView" customModule="Tic_Tac_Toe" customModuleProvider="target">
+                                <rect key="frame" x="16" y="117" width="370" height="378"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwK-YT-45K" userLabel="square3">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pp0-2e-Fgp" userLabel="s1">
+                                <rect key="frame" x="16" y="117" width="121" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uca-HR-ypy">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d3W-M2-3E0" userLabel="s2">
+                                <rect key="frame" x="131" y="117" width="119" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SSV-xW-Cwa">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JHp-n6-WD3" userLabel="s3">
+                                <rect key="frame" x="258" y="117" width="128" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6LI-bo-Wrf">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view tag="3" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1ad-LR-uwF" userLabel="s4">
+                                <rect key="frame" x="16" y="283" width="121" height="129"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yxx-EH-p1s">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view tag="4" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F2t-Bv-Z8k" userLabel="s5">
+                                <rect key="frame" x="145" y="263" width="105" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="s5y-H7-6AW">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view tag="5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H5p-8A-3Ra" userLabel="s6">
+                                <rect key="frame" x="258" y="263" width="117" height="149"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MVI-jW-ehI">
-                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                            <view tag="6" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oFT-ej-X1E" userLabel="s7">
+                                <rect key="frame" x="16" y="447" width="147" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U78-hY-u0x" customClass="GridView" customModule="Tic_Tac_Toe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="62" width="402" height="573"/>
+                            <view tag="7" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oq0-31-jsU" userLabel="s8">
+                                <rect key="frame" x="145" y="447" width="126" height="133"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <view tag="8" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fqi-kM-6eN" userLabel="s9">
+                                <rect key="frame" x="258" y="447" width="117" height="133"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3s-Ar-pNI">
+                                <rect key="frame" x="16" y="701" width="121" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TTT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UU0-oR-gej">
+                                <rect key="frame" x="16" y="57" width="359" height="52"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="O" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6px-z1-Zq0">
+                                <rect key="frame" x="277" y="701" width="98" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="50"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="43n-xZ-cmY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="oLabel" destination="6px-z1-Zq0" id="nfD-TJ-4dJ"/>
+                        <outlet property="xLabel" destination="w3s-Ar-pNI" id="ACH-hC-t02"/>
+                        <outletCollection property="squares" destination="Pp0-2e-Fgp" collectionClass="NSMutableArray" id="feH-Oc-9gL"/>
+                        <outletCollection property="squares" destination="d3W-M2-3E0" collectionClass="NSMutableArray" id="qQK-rX-Usk"/>
+                        <outletCollection property="squares" destination="JHp-n6-WD3" collectionClass="NSMutableArray" id="cWe-Dm-EKj"/>
+                        <outletCollection property="squares" destination="1ad-LR-uwF" collectionClass="NSMutableArray" id="ELA-KJ-IdT"/>
+                        <outletCollection property="squares" destination="F2t-Bv-Z8k" collectionClass="NSMutableArray" id="fI3-KX-vbt"/>
+                        <outletCollection property="squares" destination="H5p-8A-3Ra" collectionClass="NSMutableArray" id="3AR-O9-11n"/>
+                        <outletCollection property="squares" destination="oFT-ej-X1E" collectionClass="NSMutableArray" id="PC6-x1-YOc"/>
+                        <outletCollection property="squares" destination="oq0-31-jsU" collectionClass="NSMutableArray" id="LSK-BO-lm0"/>
+                        <outletCollection property="squares" destination="Fqi-kM-6eN" collectionClass="NSMutableArray" id="qZQ-fu-eoh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGk-9h-Tgr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
