@@ -18,12 +18,15 @@ class ViewController: UIViewController {
     @IBOutlet var xLabel: UILabel!
     @IBOutlet var oLabel: UILabel!
     @IBOutlet var infoView: UIView!
+    @IBOutlet var infoStyleButton: UIButton!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpSquares()
+        infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        infoStyleButton.tintColor = .blue
     }
     
     private func setUpSquares() {

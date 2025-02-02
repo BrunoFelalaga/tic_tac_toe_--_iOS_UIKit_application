@@ -30,13 +30,45 @@ class InfoView: UIView {
         layer.shadowOpacity = 0.2
         
         
+        infoViewDismissButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(infoViewDismissButton)
+        
         infoViewDismissButton.layer.cornerRadius = 5
         infoViewDismissButton.layer.backgroundColor = UIColor.blue.cgColor
         
-        infoViewDismissButton.frame.origin.x = self.frame.origin.x + 1
-        infoViewDismissButton.frame.origin.y = self.frame.origin.y + 1
-        infoViewDismissButton.frame.size.width = self.frame.width * 0.8
-        infoViewDismissButton.frame.size.height = self.frame.height * 0.5
+        NSLayoutConstraint.activate(
+            [infoViewDismissButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+             infoViewDismissButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.0),
+             infoViewDismissButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+             infoViewDismissButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
+            ]
+        )
+        
+        
+        infoViewLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(infoViewLabel)
+        
+        infoViewLabel.layer.cornerRadius = 5
+        infoViewLabel.layer.backgroundColor = UIColor.purple.cgColor
+        infoViewLabel.text = "Get 3 in a row to win!"
+        
+        NSLayoutConstraint.activate(
+            [infoViewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+             infoViewLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60.0),
+             infoViewLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+             infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
+            ]
+        )
+//
+        
+//        -
+//        infoViewDismissButton.frame.origin.x = self.frame.origin.x + 1
+//        infoViewDismissButton.frame.origin.y = self.frame.origin.y + 1
+//        infoViewDismissButton.frame.size.width = self.frame.width * 0.8
+//        infoViewDismissButton.frame.size.height = self.frame.height * 0.5
+        
+        
+        
         
         
         
