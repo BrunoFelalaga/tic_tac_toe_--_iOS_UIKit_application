@@ -25,7 +25,13 @@ class ViewController: UIViewController {
 //         Do any additional setup after loading the view.
         let lineWidth: Int = 5
         if let myGridView = view.viewWithTag(100) {
+            
+            print("rectGV x: \(myGridView.frame.origin.x) rectGV y: \(myGridView.frame.origin.y) ")
+            print("rectGV w: \(myGridView.frame.width) rectGV h: \(myGridView.frame.height) ")
+            
             let squareSize = Int(myGridView.frame.width / 3)
+            print("SQ SZ FROM GV: \(squareSize)")
+            
             for i in 0..<9 {
                 let row = i / 3
                 let col = i % 3
