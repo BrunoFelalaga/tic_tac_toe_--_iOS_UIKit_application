@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view tag="100" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NOM-Qw-cnT" customClass="GridView" customModule="Tic_Tac_Toe" customModuleProvider="target">
-                                <rect key="frame" x="16" y="117" width="370" height="378"/>
+                                <rect key="frame" x="16" y="117" width="360" height="360"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -87,11 +87,34 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3hK-uT-VcX" userLabel="infoButton">
+                                <rect key="frame" x="162" y="762" width="93" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ggE-p4-cLp" customClass="InfoView" customModule="Tic_Tac_Toe" customModuleProvider="target">
+                                <rect key="frame" x="81" y="373" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <connections>
+                                    <outlet property="infoViewDismissButton" destination="3hK-uT-VcX" id="ATE-52-kdk"/>
+                                    <outlet property="infoViewLabel" destination="CJx-SS-deC" id="ACk-48-8PP"/>
+                                </connections>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJx-SS-deC" userLabel="infoLabel">
+                                <rect key="frame" x="175" y="676" width="94" height="76"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="43n-xZ-cmY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="infoView" destination="ggE-p4-cLp" id="IV8-dU-lOA"/>
                         <outlet property="oLabel" destination="6px-z1-Zq0" id="nfD-TJ-4dJ"/>
                         <outlet property="xLabel" destination="w3s-Ar-pNI" id="ACH-hC-t02"/>
                         <outletCollection property="squares" destination="Pp0-2e-Fgp" collectionClass="NSMutableArray" id="feH-Oc-9gL"/>

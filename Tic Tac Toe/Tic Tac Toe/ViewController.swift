@@ -17,37 +17,44 @@ class ViewController: UIViewController {
     
     @IBOutlet var xLabel: UILabel!
     @IBOutlet var oLabel: UILabel!
+    @IBOutlet var infoView: UIView!
     
     
-    let squareSize = 120
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//         Do any additional setup after loading the view.
-        let lineWidth: Int = 5
-        if let myGridView = view.viewWithTag(100) {
-            
-            print("rectGV x: \(myGridView.frame.origin.x) rectGV y: \(myGridView.frame.origin.y) ")
-            print("rectGV w: \(myGridView.frame.width) rectGV h: \(myGridView.frame.height) ")
-            
-            let squareSize = Int(myGridView.frame.width / 3)
-            print("SQ SZ FROM GV: \(squareSize)")
-            
-            for i in 0..<9 {
-                let row = i / 3
-                let col = i % 3
-                squares[i].frame = CGRect(x:col * squareSize + (col > 0 ? lineWidth : 0),
-                                          y: row * squareSize + (row > 0 ? lineWidth : 0),
-                                          width: squareSize - (col > 0 ? lineWidth : 0),
-                                          height: squareSize - (row > 0 ? lineWidth : 0))
-                
-                print("sI: \(i) x: \(squares[i].frame.origin.x) y: \(squares[i].frame.origin.y)")
-                print("sI: \(i) xi: \(squares[i].frame.origin.x + squares[i].frame.width) yi: \(squares[i].frame.origin.y + squares[i].frame.height)")
-                print("")
-//                print("sI: \(i) w: \(squares[i].frame.width) h: \(squares[i].frame.height)")
-            }
-        }
+        setUpSquares()
     }
     
+    private func setUpSquares() {
+    //         Do any additional setup after loading the view.
+            let lineWidth: Int = 5
+//        let squareSize = 120
+            if let myGridView = view.viewWithTag(100) {
+                
+                print("rectGV x: \(myGridView.frame.origin.x) rectGV y: \(myGridView.frame.origin.y) ")
+                print("rectGV w: \(myGridView.frame.width) rectGV h: \(myGridView.frame.height) ")
+                
+                let squareSize = Int(myGridView.frame.width / 3)
+                let gOX = Int(myGridView.frame.origin.x)
+                let gOY = Int(myGridView.frame.origin.y)
+    //            print("SQ SZ FROM GV: \(squareSize)")
+                
+                for i in 0..<9 {
+                    let row = i / 3
+                    let col = i % 3
+                    squares[i].frame = CGRect(x: gOX + col * squareSize + (col > 0 ? lineWidth : 0),
+                                              y: gOY + row * squareSize + (row > 0 ? lineWidth : 0),
+                                              width: squareSize - (col > 0 ? lineWidth : 0),
+                                              height: squareSize - (row > 0 ? lineWidth : 0))
+                    
+                    print("sI: \(i) x: \(squares[i].frame.origin.x) y: \(squares[i].frame.origin.y)")
+                    print("sI: \(i) xi: \(squares[i].frame.origin.x + squares[i].frame.width) yi: \(squares[i].frame.origin.y + squares[i].frame.height)")
+                    print("")
+    //                print("sI: \(i) w: \(squares[i].frame.width) h: \(squares[i].frame.height)")
+                }
+            }
+    }
     
     
     private func setupMyGestureRecognizers() {
