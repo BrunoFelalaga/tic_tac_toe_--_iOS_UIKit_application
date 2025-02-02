@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class InfoView: UIView {
     
     @IBOutlet private var infoViewLabel: UILabel!
