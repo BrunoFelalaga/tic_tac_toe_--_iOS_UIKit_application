@@ -6,19 +6,32 @@
 //
 
 import UIKit
+//import InfoView
 
+enum Player {
+    case x
+    case o
+    case none
+    
+}
 class ViewController: UIViewController {
-    @IBOutlet var squares: [UIView]! {
-        didSet {
-            print("Connected sss: \(squares.count)")
-            squares.forEach{ print("square tag: \($0.tag)")}
-        }
-    }
+    @IBOutlet var squares: [UIView]! //{
+//        didSet {
+//            print("Connected sss: \(squares.count)")
+//            squares.forEach{ print("square tag: \($0.tag)")}
+//        }
+//    }
     
     @IBOutlet var xLabel: UILabel!
     @IBOutlet var oLabel: UILabel!
-    @IBOutlet var infoView: UIView!
+    @IBOutlet var infoView: InfoView!
     @IBOutlet var infoStyleButton: UIButton!
+    
+    private var currentPlayer:Player = .x
+    private var startXCenter: CGPoint!
+    private var startYCenter: CGPoint!
+    private var activeLabel: UILabel?
+    private let grid = Grid()
     
     
     
@@ -27,6 +40,46 @@ class ViewController: UIViewController {
         setUpSquares()
         infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
         infoStyleButton.tintColor = .blue
+        setupMyGestureRecognizers()
+        saveStartingPositions()
+        startNewGame()
+    }
+    
+    private func startNewGame() {
+//        grid.reset()
+        currentPlayer = .x
+        resetPieces()
+        animateCurrentPlayerPiece()
+        
+    }
+    
+    private func saveStartingPositions() {
+        startXCenter = xLabel.center
+        startYCenter = oLabel.center
+    }
+    private func resetPieces() {
+        // reset piece position
+        xLabel.center = startXCenter
+        oLabel.center = startYCenter
+        
+        //reset piece appearance
+        xLabel.alpha = currentPlayer == .x ? 1.0 : 0.5
+        oLabel.alpha = currentPlayer == .o ? 1.0 : 0.5
+        
+        // reset interaction
+        xLabel.isUserInteractionEnabled = currentPlayer == .x
+        oLabel.isUserInteractionEnabled = currentPlayer == .o
+    }
+    
+    private func animateCurrentPlayerPiece() {
+        let pieceToAnimate = currentPlayer == .x ? xLabel : oLabel
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            pieceToAnimate?.transform = CGAffineTransform(scaleX: 2.2, y: 2.2)
+        }) { _ in
+            UIView.animate(withDuration: 0.3){
+                pieceToAnimate?.transform = .identity
+            }}
     }
     
     private func setUpSquares() {
@@ -35,8 +88,8 @@ class ViewController: UIViewController {
 //        let squareSize = 120
             if let myGridView = view.viewWithTag(100) {
                 
-                print("rectGV x: \(myGridView.frame.origin.x) rectGV y: \(myGridView.frame.origin.y) ")
-                print("rectGV w: \(myGridView.frame.width) rectGV h: \(myGridView.frame.height) ")
+//                print("rectGV x: \(myGridView.frame.origin.x) rectGV y: \(myGridView.frame.origin.y) ")
+//                print("rectGV w: \(myGridView.frame.width) rectGV h: \(myGridView.frame.height) ")
                 
                 let squareSize = Int(myGridView.frame.width / 3)
                 let gOX = Int(myGridView.frame.origin.x)
@@ -51,9 +104,9 @@ class ViewController: UIViewController {
                                               width: squareSize - (col > 0 ? lineWidth : 0),
                                               height: squareSize - (row > 0 ? lineWidth : 0))
                     
-                    print("sI: \(i) x: \(squares[i].frame.origin.x) y: \(squares[i].frame.origin.y)")
-                    print("sI: \(i) xi: \(squares[i].frame.origin.x + squares[i].frame.width) yi: \(squares[i].frame.origin.y + squares[i].frame.height)")
-                    print("")
+//                    print("sI: \(i) x: \(squares[i].frame.origin.x) y: \(squares[i].frame.origin.y)")
+//                    print("sI: \(i) xi: \(squares[i].frame.origin.x + squares[i].frame.width) yi: \(squares[i].frame.origin.y + squares[i].frame.height)")
+//                    print("")
     //                print("sI: \(i) w: \(squares[i].frame.width) h: \(squares[i].frame.height)")
                 }
             }
@@ -73,28 +126,104 @@ class ViewController: UIViewController {
     }
     
     @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
-        let panLabel = gesture.view!
+        guard let panLabel = gesture.view as? UILabel else { return }
         let translation = gesture.translation(in: view)
         
         switch gesture.state {
-        case .began, .changed:
+        case .began:
+            activeLabel = panLabel
+        case .changed:
             panLabel.center = CGPoint(
                 x: panLabel.center.x + translation.x,
                 y: panLabel.center.y + translation.y )
             gesture.setTranslation(.zero, in: view)
         case .ended:
             checkForPlacementSquare(panLabel)
+            activeLabel = nil
         
         default:
             break
         }
     }
-    
+   
     
     private func checkForPlacementSquare(_ panLabel: UIView) {
         
+        for (index, square) in squares.enumerated() {
+//            print("ix \(index)")
+            if panLabel.frame.intersects(square.frame) && grid.isSquareEmpty(at: index){
+                print("dd \(index)")
+                placePiece(panLabel, in: square, at: index)
+                return
+            }
+        }
+        
+        return returnPieceToStart(panLabel)
     }
-
-
+    
+    private func placePiece(_ piece: UIView, in square: UIView, at index: Int ) {
+        UIView.animate(withDuration: 0.2) {
+            piece.center = square.center
+        } completion: { _ in
+            self.grid.markTheSquare(at: index, for: self.currentPlayer)
+            
+            if let winner = self.grid.checkWinner() {
+                self.handleWin(who: winner)
+            } else if self.grid.isATie() {
+                self.handleATie()
+            } else {
+                self.switchPlayerTurns()
+            }
+        }
+    }
+    
+    private func handleWin(who winner: Player) {
+        let message = winner == .x ? "X wins!" : "O wins!"
+    }
+    
+    private func switchPlayerTurns() {
+        currentPlayer = currentPlayer == .x ? .o : .x
+//        resetPieces()
+        animateCurrentPlayerPiece()
+    }
+    
+    
+    private func handleATie() {
+        showGameOver(message: "It is a Tie! Both won!")
+    }
+    
+    private func returnPieceToStart(_ piece: UIView) {
+        UIView.animate(withDuration: 0.3) {
+            piece.center = piece == self.xLabel ? self.startXCenter : self.startYCenter
+        }
+    }
+    private func showGameOver(message: String) {
+        infoView.displayMessage(message)
+        
+        infoView.center.y = -infoView.bounds.height
+        infoView.isHidden = false
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
+            self.infoView.center.y = self.view.center.y
+        }
+        
+    }
+    
+    
+    @IBAction func showGameInstructions(_ sender: UIButton) {
+        infoView.displayMessage("""
+                                How to Play:
+                                1. Drag X or O piece onto thegrid
+                                2. Take turns placing pieces
+                                3. Get 3 consectuive pieces in a row or column or diagonal and you win!
+                                """)
+        
+        infoView.center.y = -infoView.bounds.height
+        infoView.isHidden = false
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
+            self.infoView.center.y = self.view.center.y
+        }
+    }
+    
 }
 

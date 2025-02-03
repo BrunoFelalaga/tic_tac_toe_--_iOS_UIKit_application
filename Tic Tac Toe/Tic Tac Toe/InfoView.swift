@@ -13,6 +13,7 @@ class InfoView: UIView {
     @IBOutlet private var infoViewLabel: UILabel!
     @IBOutlet private var infoViewDismissButton: UIButton!
     
+//    init{}
     private var dismissHandler: (() -> Void)?
     
     override func awakeFromNib() {
@@ -60,18 +61,6 @@ class InfoView: UIView {
              infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
             ]
         )
-//
-        
-//        -
-//        infoViewDismissButton.frame.origin.x = self.frame.origin.x + 1
-//        infoViewDismissButton.frame.origin.y = self.frame.origin.y + 1
-//        infoViewDismissButton.frame.size.width = self.frame.width * 0.8
-//        infoViewDismissButton.frame.size.height = self.frame.height * 0.5
-        
-        
-        
-        
-        
         
         infoViewDismissButton.addTarget(self, action: #selector(infoViewDismissButtonTapped), for: .touchUpInside)
 //        addSubview(infoViewDismissButton)
@@ -84,6 +73,11 @@ class InfoView: UIView {
         } completion: { _ in
             self.dismissHandler?()
             self.frame.origin.y = -self.frame.height}
+    }
+    
+    
+    public func displayMessage(_ message: String) {
+        infoViewLabel.text = message
     }
     
     
