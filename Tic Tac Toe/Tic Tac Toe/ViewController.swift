@@ -43,10 +43,12 @@ class ViewController: UIViewController {
         setupMyGestureRecognizers()
         saveStartingPositions()
         startNewGame()
+//        infoView.dismissHandler = { [weak self] in
+//            self?.startNewGame()}
     }
     
     private func startNewGame() {
-//        grid.reset()
+        grid.reset()
         currentPlayer = .x
         resetPieces()
         animateCurrentPlayerPiece()
@@ -162,9 +164,11 @@ class ViewController: UIViewController {
     }
     
     private func placePiece(_ piece: UIView, in square: UIView, at index: Int ) {
+        piece.isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.2) {
             piece.center = square.center
         } completion: { _ in
+//            piece.isUserInteractionEnabled = false
             self.grid.markTheSquare(at: index, for: self.currentPlayer)
             
             if let winner = self.grid.checkWinner() {
@@ -179,11 +183,12 @@ class ViewController: UIViewController {
     
     private func handleWin(who winner: Player) {
         let message = winner == .x ? "X wins!" : "O wins!"
+        showGameOver(message: message)
     }
     
     private func switchPlayerTurns() {
         currentPlayer = currentPlayer == .x ? .o : .x
-//        resetPieces()
+        resetPieces()
         animateCurrentPlayerPiece()
     }
     
