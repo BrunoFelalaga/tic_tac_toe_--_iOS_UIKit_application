@@ -11,12 +11,10 @@ import UIKit
 public class GridView: UIView {
     
     @IBInspectable var lineWidth: CGFloat = 2.0
-//    let gridViewX =
 
     
     public override func draw(_ rect: CGRect) {
-        
-//        let
+
         let verticalLine = UIBezierPath()
         let leftLineX = rect.width / 3
         let rightLineX = leftLineX * 2
@@ -40,19 +38,11 @@ public class GridView: UIView {
         
         
         UIColor.purple.setStroke()
-        verticalLine.lineWidth = lineWidth //5.0
-        horizontalLine.lineWidth = lineWidth //5.0
+        verticalLine.lineWidth = lineWidth 
+        horizontalLine.lineWidth = lineWidth 
         
         verticalLine.stroke()
         horizontalLine.stroke()
         
-//        print("rect x: \(rect.origin.x) rect y: \(rect.origin.y) ")
-//        print("rect w: \(rect.width) rect h: \(rect.height) ")
-//        print("lx: \(leftLineX) rx: \(rightLineX)")
-//        print("tY: \(topLineY) bY: \(bottomLineY)")
-//        
-////        rect w: 370.0 rect h: 532.0
-////        lx: 123.33333333333333 rx: 246.66666666666666
-////        tY: 177.33333333333334 bY: 354.6666666666667
     }
 }

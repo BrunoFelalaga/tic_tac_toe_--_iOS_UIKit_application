@@ -8,14 +8,10 @@
 import UIKit
 
 
-
 class InfoView: UIView {
     
     @IBOutlet private var infoViewLabel: UILabel!
     @IBOutlet var infoViewDismissButton: UIButton!
-//    @IBOutlet private var infoViewDismissButton: UIButton!
-    
-//    init{}
     private var dismissHandler: (() -> Void)?
     
     override func awakeFromNib() {
@@ -26,10 +22,6 @@ class InfoView: UIView {
     private func setUpInfoView() {
         
         backgroundColor = UIColor.red.withAlphaComponent(1.0)
-//                layer.cornerRadius = 12
-//                layer.borderColor = UIColor.systemBlue.cgColor
-//                layer.borderWidth = 2
-        
         layer.cornerRadius = 12
         layer.borderColor = UIColor.purple.cgColor
         layer.borderWidth = 2
@@ -48,12 +40,10 @@ class InfoView: UIView {
                     print("jdjdjdjd")
                 } else if let label = view as? UILabel,
                           label.text == "X" || label.text == "O" {
-                    print("lslsls")
-//                    label.isUserInteractionEnabled = true
                 } else { print("lll\(view.isUserInteractionEnabled) tt : \(String(describing: type(of :view)))")}
             }
         }
-//        
+
         
         infoViewDismissButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(infoViewDismissButton)
@@ -86,7 +76,7 @@ class InfoView: UIView {
         )
         
         infoViewDismissButton.addTarget(self, action: #selector(infoViewDismissButtonTapped), for: .touchUpInside)
-//        addSubview(infoViewDismissButton)
+
     }
     
     @objc private func infoViewDismissButtonTappedxxx() {
@@ -97,9 +87,7 @@ class InfoView: UIView {
             //            self.dismissHandler?()
             self.frame.origin.y = -self.frame.height
             self.isHidden = true
-//            self.window?.isUserInteractionEnabled = true //---
-//            self.superview?.isUserInteractionEnabled = true //
-            
+
 //            if let viewController = self.superview as? ViewController {
 //                viewController.view.isUserInteractionEnabled = viewController.previousInteractionState
 //            }
@@ -133,36 +121,6 @@ class InfoView: UIView {
     }
     
     
-//    @objc private func infoViewDismissButtonTapped() {
-//        let screenHeight = UIScreen.main.bounds.height
-//        
-//        let animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.8) {
-//            self.center.y = screenHeight + self.frame.height/2
-//            self.transform = CGAffineTransform(rotationAngle: .pi/8)
-//        }
-//        
-//        print("hehehe")
-//        animator.addCompletion { _ in
-//            self.dismissHandler?()
-//            self.transform = .identity
-//            self.frame.origin.y = -self.frame.height
-//        }
-//        
-//        animator.startAnimation()
-//    }
-        
-//    public func displayMessage(_ message: String, isLongMessage: Bool = false) {
-//        infoViewLabel.text = message
-//        if isLongMessage {
-//            NSLayoutConstraint.activate([infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 5.5)])
-//        } else {
-//            NSLayoutConstraint.activate(
-//                [infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)]
-//            )
-//        }
-////        infoViewLabel.text = message
-//    }
-    
     public func displayMessageo(_ message: String, isLongMessage: Bool = false) {
         infoViewLabel.text = message
         
@@ -188,10 +146,10 @@ class InfoView: UIView {
             viewController.subviews.forEach { view in
                 if view.tag >= 0 && view.tag <= 8 { // Square views
                     view.isUserInteractionEnabled = false
-                    print("jdjdjdjd")
+                    
                 } else if let label = view as? UILabel,
                           label.text == "X" || label.text == "O" {
-                    print("lslsls")
+                    
                     label.isUserInteractionEnabled = true
                 }
             }
