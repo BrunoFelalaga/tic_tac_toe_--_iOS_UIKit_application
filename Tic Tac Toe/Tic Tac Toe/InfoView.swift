@@ -22,6 +22,12 @@ class InfoView: UIView {
     }
     
     private func setUpInfoView() {
+        
+        backgroundColor = UIColor.red.withAlphaComponent(1.0)
+//                layer.cornerRadius = 12
+//                layer.borderColor = UIColor.systemBlue.cgColor
+//                layer.borderWidth = 2
+        
         layer.cornerRadius = 12
         layer.borderColor = UIColor.purple.cgColor
         layer.borderWidth = 2
@@ -106,12 +112,13 @@ class InfoView: UIView {
 ////        infoViewLabel.text = message
 //    }
     
-    public func displayMessage(_ message: String, isLongMessage: Bool = false) {
+    public func displayMessageo(_ message: String, isLongMessage: Bool = false) {
         infoViewLabel.text = message
         
         if isLongMessage {
             frame = CGRect(x: frame.origin.x, y: frame.origin.y,
                            width: frame.width, height: 300)
+
             infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
         } else {
             frame = CGRect(x: frame.origin.x, y: frame.origin.y,
@@ -121,6 +128,30 @@ class InfoView: UIView {
         infoViewLabel.numberOfLines = 0
     }
     
-    
+    public func displayMessage(_ message: String, isLongMessage: Bool = false) {
+        infoViewLabel.text = message
+        infoViewLabel.numberOfLines = 0
+        
+        if isLongMessage {
+            //frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width+50, height: 300)
+            frame = CGRect(x: frame.origin.x - 25, y: frame.origin.y, width: frame.width + 50, height: 300)
+            NSLayoutConstraint.activate([
+                infoViewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                infoViewLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20.0),
+                infoViewLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+                infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6)
+            ])
+        } else {
+            frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width, height: 200)
+            NSLayoutConstraint.activate([
+                infoViewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+                infoViewLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60.0),
+                infoViewLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
+                infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
+            ])
+        }
+    }
+
+
     
 }
