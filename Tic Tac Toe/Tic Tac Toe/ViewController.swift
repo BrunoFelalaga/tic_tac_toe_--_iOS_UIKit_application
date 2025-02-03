@@ -247,6 +247,7 @@ class ViewController: UIViewController {
         squares.forEach { $0.isUserInteractionEnabled = false }
         xLabel.isUserInteractionEnabled = false
         oLabel.isUserInteractionEnabled = false
+        infoView.infoViewDismissButton.isUserInteractionEnabled = true
         
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y

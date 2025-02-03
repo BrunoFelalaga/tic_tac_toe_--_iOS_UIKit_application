@@ -31,32 +31,6 @@ class InfoView: UIView {
         layer.shadowRadius = 4
         layer.shadowOpacity = 0.2
         
-        // Get reference to view controller's view
-        if let viewController = self.superview as? UIView {
-            // Re-enable interactions for game pieces and squares
-            viewController.subviews.forEach { view in
-                if view.tag >= 0 && view.tag <= 8 { // Square views
-//                    view.isUserInteractionEnabled = false
-//                    print("jdjdjdjd\(view.tag) \(String(describing: type(of :view)))")
-                    if let label = view as? UILabel,
-                                              label.text == "X" || label.text == "O" {
-                        print("iii \(label.text) \(label.isUserInteractionEnabled)")
-                        label.superview?.isUserInteractionEnabled = false
-                                    }
-                     else if let label = view as? UIButton
-                                             /* label.text == "OK" || label.text == "O" */{
-                        print("iii ----  \(label.isUserInteractionEnabled)")
-                        label.superview?.isUserInteractionEnabled = true
-                        
-                     } else { view.isUserInteractionEnabled = false }
-                    //                } else if let label = view as? UILabel,
-                    //                          label.text == "X" || label.text == "O" {
-                    //                    print("iii")
-                    //                } else { print("lll\(view.isUserInteractionEnabled) tt : \(String(describing: type(of :view)))")}
-                }
-            }}
-
-        
         infoViewDismissButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(infoViewDismissButton)
         
@@ -100,9 +74,6 @@ class InfoView: UIView {
             self.frame.origin.y = -self.frame.height
             self.isHidden = true
 
-//            if let viewController = self.superview as? ViewController {
-//                viewController.view.isUserInteractionEnabled = viewController.previousInteractionState
-//            }
         }
     }
     
@@ -133,43 +104,12 @@ class InfoView: UIView {
     }
     
     
-    public func displayMessageo(_ message: String, isLongMessage: Bool = false) {
-        infoViewLabel.text = message
-        
-        if isLongMessage {
-            frame = CGRect(x: frame.origin.x, y: frame.origin.y,
-                           width: frame.width, height: 300)
-
-            infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
-        } else {
-            frame = CGRect(x: frame.origin.x, y: frame.origin.y,
-                           width: frame.width, height: 200)
-            infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
-        }
-        infoViewLabel.numberOfLines = 0
-    }
-    
     public func displayMessage(_ message: String, isLongMessage: Bool = false) {
         infoViewLabel.text = message
         infoViewLabel.numberOfLines = 0
-        // Get reference to view controller's view
-        if let viewController = self.superview as? UIView {
-            // Re-enable interactions for game pieces and squares
-            viewController.subviews.forEach { view in
-                if view.tag >= 0 && view.tag <= 8 { // Square views
-                    view.isUserInteractionEnabled = false
-                    
-                } else if let label = view as? UILabel,
-                          label.text == "X" || label.text == "O" {
-                    
-                    label.isUserInteractionEnabled = true
-                }
-            }
-        }
-        
+  
         
         if isLongMessage {
-            //frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width+50, height: 300)
             frame = CGRect(x: frame.origin.x - 25, y: frame.origin.y, width: frame.width + 50, height: 300)
             NSLayoutConstraint.activate([
                 infoViewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
