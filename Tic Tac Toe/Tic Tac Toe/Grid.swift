@@ -7,7 +7,7 @@
 
 class Grid {
     
-    private var squares: [Player] = Array(repeating: .none, count: 0)
+    private var squares: [Player] = Array(repeating: .none, count: 9)
     
     private var winningCombos = [
         [0,1,2], [3,4,5], [6,7,8],
