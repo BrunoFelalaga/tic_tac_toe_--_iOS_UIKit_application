@@ -206,6 +206,7 @@ class ViewController: UIViewController {
     }
     
     // Animates a winning line across the three matching squares.
+    // src for CABasicAnimation for winning line --> https://www.hackingwithswift.com/example-code/calayer/how-to-make-a-shape-draw-itself-using-strokeend
     private func animateWinningLine(_ combination: [Int]) {
         // starting and ending winnning combination
         let startSquare = squares[combination[0]]
