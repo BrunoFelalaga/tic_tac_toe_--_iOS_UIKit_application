@@ -61,4 +61,11 @@ class Grid {
     func reset() {
         squares = Array(repeating: .none, count: 9)
     }
+    
+    
+    
+    
+    
+    
+    
 }

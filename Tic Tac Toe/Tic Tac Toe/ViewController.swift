@@ -29,14 +29,18 @@ class ViewController: UIViewController {
     
     private var currentPlayer:Player = .x
     private var startXCenter: CGPoint!
-    private var startYCenter: CGPoint!
+    private var startOCenter: CGPoint!
     private var activeLabel: UILabel?
     private let grid = Grid()
+    private var pieceWidth: CGFloat!
+    private var pieceFontSize: CGFloat!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        pieceWidth = xLabel.frame.width
+        pieceFontSize = xLabel.font.pointSize
         setUpSquares()
         infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
         infoStyleButton.tintColor = .blue
@@ -57,12 +61,12 @@ class ViewController: UIViewController {
     
     private func saveStartingPositions() {
         startXCenter = xLabel.center
-        startYCenter = oLabel.center
+        startOCenter = oLabel.center
     }
     private func resetPieces() {
         // reset piece position
         xLabel.center = startXCenter
-        oLabel.center = startYCenter
+        oLabel.center = startOCenter
         
         //reset piece appearance
         xLabel.alpha = currentPlayer == .x ? 1.0 : 0.5
@@ -147,9 +151,40 @@ class ViewController: UIViewController {
             break
         }
     }
+    
+//    @objc private func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
+//        guard let panLabel = gesture.view as? UILabel else { return }
+//        let translation = gesture.translation(in: view)
+//        
+//        switch gesture.state {
+//        case .began:
+//            activeLabel = panLabel
+//            let newPiece = createNewPiece(text: panLabel.text ?? "", at: panLabel == xLabel ? startXCenter : startOCenter)
+//            newPiece.alpha = 0.5
+//            panLabel == xLabel ? (xLabel = newPiece) : (oLabel = newPiece)
+//            
+//        case .changed:
+//            panLabel.center = CGPoint(
+//                x: panLabel.center.x + translation.x,
+//                y: panLabel.center.y + translation.y )
+//            gesture.setTranslation(.zero, in: view)
+//            
+//        case .ended:
+//            if checkForPlacementSquare(panLabel) {
+//                panLabel == xLabel ? xLabel.removeFromSuperview() : oLabel.removeFromSuperview()
+//            } else {
+//                panLabel.removeFromSuperview()
+//                panLabel == xLabel ? (xLabel.alpha = 1.0) : (oLabel.alpha = 1.0)
+//            }
+//            activeLabel = nil
+//            
+//        default:
+//            break
+//        }
+//    }
    
     
-    private func checkForPlacementSquare(_ panLabel: UIView) {
+    private func checkForPlacementSquare(_ panLabel: UIView){ //} -> Bool{
         
         for (index, square) in squares.enumerated() {
 //            print("ix \(index)")
@@ -157,41 +192,81 @@ class ViewController: UIViewController {
                 print("dd \(index)")
                 placePiece(panLabel, in: square, at: index)
                 return
+//                return true
             }
         }
         
         return returnPieceToStart(panLabel)
+//        returnPieceToStart(panLabel)
+//        return false
     }
     
-    private func placePiece(_ piece: UIView, in square: UIView, at index: Int ) {
-        piece.isUserInteractionEnabled = false
-        UIView.animate(withDuration: 0.2) {
-            piece.center = square.center
-        } completion: { _ in
-//            piece.isUserInteractionEnabled = false
-            self.grid.markTheSquare(at: index, for: self.currentPlayer)
-            
-            if let winner = self.grid.checkWinner() {
-                self.handleWin(who: winner)
-            } else if self.grid.isATie() {
-                self.handleATie()
-            } else {
-                self.switchPlayerTurns()
-            }
+//    private func placePiece(_ piece: UIView, in square: UIView, at index: Int ) {
+//        piece.isUserInteractionEnabled = false
+//        UIView.animate(withDuration: 0.2) {
+//            piece.center = square.center
+//        } completion: { _ in
+////            piece.isUserInteractionEnabled = false
+//            self.grid.markTheSquare(at: index, for: self.currentPlayer)
+//            
+//            if let winner = self.grid.checkWinner() {
+//                self.handleWin(who: winner)
+//            } else if self.grid.isATie() {
+//                self.handleATie()
+//            } else {
+//                self.switchPlayerTurns()
+//            }
+//        }
+//    }
+//    
+//    private func handleWin(who winner: Player) {
+//        let message = winner == .x ? "X wins!" : "O wins!"
+//        showGameOver(message: message)
+//    }
+    
+    
+    private func animateWinningLine(_ combination: [Int]) {
+        let startSquare = squares[combination[0]]
+        let endSquare = squares[combination[2]]
+        
+        let lineLayer = CAShapeLayer()
+        lineLayer.strokeColor = UIColor.purple.cgColor
+        lineLayer.lineWidth = 5
+        lineLayer.lineCap = .round
+        
+        let path = UIBezierPath()
+        path.move(to: startSquare.center)
+        path.addLine(to: endSquare.center)
+        
+        lineLayer.path = path.cgPath
+        view.layer.addSublayer(lineLayer)
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0
+        animation.toValue = 1
+        animation.duration = 0.5
+        
+        lineLayer.add(animation, forKey: "lineAnimation")
+        
+        // Remove line after delay and show game over
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            lineLayer.removeFromSuperlayer()
+            self.showGameOver(message: self.currentPlayer == .x ? "X Wins!" : "O Wins!")
         }
     }
-    
+
+    // Replace your existing handleWin(who:) function with this:
     private func handleWin(who winner: Player) {
-        let message = winner == .x ? "X wins!" : "O wins!"
-        showGameOver(message: message)
+        guard let combination = grid.getWinningCombination() else { return }
+        animateWinningLine(combination)
     }
     
-    private func switchPlayerTurns() {
-        currentPlayer = currentPlayer == .x ? .o : .x
-        resetPieces()
-        animateCurrentPlayerPiece()
-    }
-    
+//    private func switchPlayerTurns() {
+//        currentPlayer = currentPlayer == .x ? .o : .x
+//        resetPieces()
+//        animateCurrentPlayerPiece()
+//    }
+//    
     
     private func handleATie() {
         showGameOver(message: "It is a Tie! Both won!")
@@ -199,7 +274,7 @@ class ViewController: UIViewController {
     
     private func returnPieceToStart(_ piece: UIView) {
         UIView.animate(withDuration: 0.3) {
-            piece.center = piece == self.xLabel ? self.startXCenter : self.startYCenter
+            piece.center = piece == self.xLabel ? self.startXCenter : self.startOCenter
         }
     }
     private func showGameOver(message: String) {
@@ -228,6 +303,72 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y
         }
+    }
+    
+    
+    
+    
+    
+    
+    
+    private func placePiece(_ piece: UIView, in square: UIView, at index: Int) {
+        UIView.animate(withDuration: 0.2) {
+            piece.center = square.center
+        } completion: { _ in
+            // Update game state
+            self.grid.markTheSquare(at: index, for: self.currentPlayer)
+            piece.isUserInteractionEnabled = false
+            
+            // Check game end conditions
+            if let winner = self.grid.checkWinner() {
+                self.handleWin(who: winner)
+            } else if self.grid.isATie() {
+                self.handleATie()
+            } else {
+                print("cp: \(self.currentPlayer)")
+                self.switchPlayerTurns()
+            }
+        }
+    }
+
+    private func switchPlayerTurns() {
+        
+        
+        // Create and position new piece for next turn
+        print("cp: \(currentPlayer)")
+        if currentPlayer == .x {
+            xLabel = createNewPiece(text: "X", at: startXCenter)
+        } else {
+            oLabel = createNewPiece(text: "O", at: startOCenter)
+        }
+        
+        currentPlayer = currentPlayer == .x ? .o : .x
+        
+        // Set interaction states
+        xLabel.isUserInteractionEnabled = currentPlayer == .x
+        oLabel.isUserInteractionEnabled = currentPlayer == .o
+        
+        xLabel.alpha = currentPlayer == .x ? 1.0 : 0.5
+        oLabel.alpha = currentPlayer == .o ? 1.0 : 0.5
+        
+        animateCurrentPlayerPiece()
+    }
+
+    
+    private func createNewPiece(text: String, at center: CGPoint) -> UILabel {
+        let newPiece = UILabel()
+        newPiece.text = text
+        newPiece.textAlignment = .center
+        newPiece.font = .systemFont(ofSize: pieceFontSize, weight: .bold)
+        newPiece.frame.size = CGSize(width: pieceWidth, height: pieceWidth) // Match original label size
+        newPiece.center = center
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
+        newPiece.addGestureRecognizer(panGesture)
+//        newPiece.isUserInteractionEnabled = true
+        
+        view.addSubview(newPiece)
+        return newPiece
     }
     
 }
