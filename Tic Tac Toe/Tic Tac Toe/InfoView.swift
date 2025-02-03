@@ -39,6 +39,21 @@ class InfoView: UIView {
         layer.shadowRadius = 4
         layer.shadowOpacity = 0.2
         
+        // Get reference to view controller's view
+        if let viewController = self.superview as? UIView {
+            // Re-enable interactions for game pieces and squares
+            viewController.subviews.forEach { view in
+                if view.tag >= 0 && view.tag <= 8 { // Square views
+                    view.isUserInteractionEnabled = false
+                    print("jdjdjdjd")
+                } else if let label = view as? UILabel,
+                          label.text == "X" || label.text == "O" {
+                    print("lslsls")
+//                    label.isUserInteractionEnabled = true
+                } else { print("lll\(view.isUserInteractionEnabled) tt : \(String(describing: type(of :view)))")}
+            }
+        }
+//        
         
         infoViewDismissButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(infoViewDismissButton)
@@ -167,6 +182,21 @@ class InfoView: UIView {
     public func displayMessage(_ message: String, isLongMessage: Bool = false) {
         infoViewLabel.text = message
         infoViewLabel.numberOfLines = 0
+        // Get reference to view controller's view
+        if let viewController = self.superview as? UIView {
+            // Re-enable interactions for game pieces and squares
+            viewController.subviews.forEach { view in
+                if view.tag >= 0 && view.tag <= 8 { // Square views
+                    view.isUserInteractionEnabled = false
+                    print("jdjdjdjd")
+                } else if let label = view as? UILabel,
+                          label.text == "X" || label.text == "O" {
+                    print("lslsls")
+                    label.isUserInteractionEnabled = true
+                }
+            }
+        }
+        
         
         if isLongMessage {
             //frame = CGRect(x: frame.origin.x, y: frame.origin.y, width: frame.width+50, height: 300)
