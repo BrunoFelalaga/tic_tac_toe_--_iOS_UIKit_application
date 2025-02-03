@@ -31,3 +31,4 @@ A gesture-based Tic Tac Toe game for two players on a single device using `UIGes
 
 Developed by Bruno Felalaga for **MPCS 51030 iOS Application Development**. 
 Free Icon source: https://www.iconfinder.com/icons/190322/game_tac_tic_toe_icon
+Animating Win with Line: https://www.hackingwithswift.com/example-code/calayer/how-to-make-a-shape-draw-itself-using-strokeend
