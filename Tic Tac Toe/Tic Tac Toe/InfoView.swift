@@ -36,13 +36,25 @@ class InfoView: UIView {
             // Re-enable interactions for game pieces and squares
             viewController.subviews.forEach { view in
                 if view.tag >= 0 && view.tag <= 8 { // Square views
-                    view.isUserInteractionEnabled = false
-                    print("jdjdjdjd")
-                } else if let label = view as? UILabel,
-                          label.text == "X" || label.text == "O" {
-                } else { print("lll\(view.isUserInteractionEnabled) tt : \(String(describing: type(of :view)))")}
-            }
-        }
+//                    view.isUserInteractionEnabled = false
+//                    print("jdjdjdjd\(view.tag) \(String(describing: type(of :view)))")
+                    if let label = view as? UILabel,
+                                              label.text == "X" || label.text == "O" {
+                        print("iii \(label.text) \(label.isUserInteractionEnabled)")
+                        label.superview?.isUserInteractionEnabled = false
+                                    }
+                     else if let label = view as? UIButton
+                                             /* label.text == "OK" || label.text == "O" */{
+                        print("iii ----  \(label.isUserInteractionEnabled)")
+                        label.superview?.isUserInteractionEnabled = true
+                        
+                     } else { view.isUserInteractionEnabled = false }
+                    //                } else if let label = view as? UILabel,
+                    //                          label.text == "X" || label.text == "O" {
+                    //                    print("iii")
+                    //                } else { print("lll\(view.isUserInteractionEnabled) tt : \(String(describing: type(of :view)))")}
+                }
+            }}
 
         
         infoViewDismissButton.translatesAutoresizingMaskIntoConstraints = false
