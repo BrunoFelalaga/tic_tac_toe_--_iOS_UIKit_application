@@ -27,6 +27,11 @@ This project is gesture-based Tic Tac Toe game for two players on a single devic
 - `InfoView.swift`: Displays game instructions and results. VIEW
 - Uses `UIViewPropertyAnimator` for animations and `CABasicAnimation` for the winning line.
 
+## Further Improvements
+- Implement game restart after a game ends
+- Use more harmonized color scheme
+- Disable user interaction for all elements when infoView is up. Currently this works only for when the game instructions is up
+
 ## Credits
 
 Developed by Bruno Felalaga for **MPCS 51030 iOS Application Development**. 
