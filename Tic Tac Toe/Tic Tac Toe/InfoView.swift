@@ -71,8 +71,9 @@ class InfoView: UIView {
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
             self.frame.origin.y = screenHeight
         } completion: { _ in
-            self.dismissHandler?()
-            self.frame.origin.y = -self.frame.height}
+            //            self.dismissHandler?()
+            self.frame.origin.y = -self.frame.height
+            self.isHidden = true}
     }
     
 //    @objc private func infoViewDismissButtonTapped() {
@@ -93,9 +94,33 @@ class InfoView: UIView {
 //        animator.startAnimation()
 //    }
         
-    public func displayMessage(_ message: String) {
+//    public func displayMessage(_ message: String, isLongMessage: Bool = false) {
+//        infoViewLabel.text = message
+//        if isLongMessage {
+//            NSLayoutConstraint.activate([infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 5.5)])
+//        } else {
+//            NSLayoutConstraint.activate(
+//                [infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)]
+//            )
+//        }
+////        infoViewLabel.text = message
+//    }
+    
+    public func displayMessage(_ message: String, isLongMessage: Bool = false) {
         infoViewLabel.text = message
+        
+        if isLongMessage {
+            frame = CGRect(x: frame.origin.x, y: frame.origin.y,
+                           width: frame.width, height: 300)
+            infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
+        } else {
+            frame = CGRect(x: frame.origin.x, y: frame.origin.y,
+                           width: frame.width, height: 200)
+            infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
+        }
+        infoViewLabel.numberOfLines = 0
     }
+    
     
     
 }

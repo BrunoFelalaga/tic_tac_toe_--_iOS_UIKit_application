@@ -49,6 +49,7 @@ class ViewController: UIViewController {
         startNewGame()
 //        infoView.dismissHandler = { [weak self] in
 //            self?.startNewGame()}
+        infoStyleButton.addTarget(self, action: #selector(showGameInstructions(_:)), for: .touchUpInside)
     }
     
     private func startNewGame() {
@@ -296,9 +297,9 @@ class ViewController: UIViewController {
                                 1. Drag X or O piece onto thegrid
                                 2. Take turns placing pieces
                                 3. Get 3 consectuive pieces in a row or column or diagonal and you win!
-                                """)
+                                """, isLongMessage: true)
         
-        infoView.center.y = -infoView.bounds.height
+        infoView.center.y = -infoView.bounds.height // / 2
         infoView.isHidden = false
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y
