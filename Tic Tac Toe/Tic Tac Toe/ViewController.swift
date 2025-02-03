@@ -284,6 +284,9 @@ class ViewController: UIViewController {
         infoView.center.y = -infoView.bounds.height
         infoView.isHidden = false
         
+//        view.window?.isUserInteractionEnabled = false  // Add this line
+        view.isUserInteractionEnabled = false
+        infoView.isUserInteractionEnabled = true // ---
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y
         }
@@ -301,6 +304,11 @@ class ViewController: UIViewController {
         
         infoView.center.y = -infoView.bounds.height // / 2
         infoView.isHidden = false
+        
+//        view.window?.isUserInteractionEnabled = false  // Add this line
+        view.isUserInteractionEnabled = false
+        infoView.isUserInteractionEnabled = true // ---
+        infoView.infoViewDismissButton.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y
         }

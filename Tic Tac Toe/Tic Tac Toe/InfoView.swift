@@ -11,7 +11,8 @@ import UIKit
 class InfoView: UIView {
     
     @IBOutlet private var infoViewLabel: UILabel!
-    @IBOutlet private var infoViewDismissButton: UIButton!
+    @IBOutlet var infoViewDismissButton: UIButton!
+//    @IBOutlet private var infoViewDismissButton: UIButton!
     
 //    init{}
     private var dismissHandler: (() -> Void)?
@@ -79,7 +80,10 @@ class InfoView: UIView {
         } completion: { _ in
             //            self.dismissHandler?()
             self.frame.origin.y = -self.frame.height
-            self.isHidden = true}
+            self.isHidden = true
+//            self.window?.isUserInteractionEnabled = true //---
+            self.superview?.isUserInteractionEnabled = true //
+        }
     }
     
 //    @objc private func infoViewDismissButtonTapped() {
