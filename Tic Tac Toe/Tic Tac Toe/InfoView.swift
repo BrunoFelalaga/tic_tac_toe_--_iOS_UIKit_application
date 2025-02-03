@@ -22,56 +22,12 @@ class InfoView: UIView {
     // Configure the infoview with styling and layout constraints
     private func setUpInfoView() {
 
-        // // Set background color and border styling
-        // backgroundColor = UIColor.red.withAlphaComponent(1.0)
-        // layer.cornerRadius = 12
-        // layer.borderColor = UIColor.purple.cgColor
-        // layer.borderWidth = 2
-        
-        // // Add shadow properties
-        // layer.shadowColor = UIColor.purple.cgColor
-        // layer.shadowRadius = 4
-        // layer.shadowOpacity = 0.2
         configureViewAppearance()
 
-        // infoViewDismissButton.translatesAutoresizingMaskIntoConstraints = false
-        // addSubview(infoViewDismissButton)
-        
-        // infoViewDismissButton.layer.cornerRadius = 5
-        // infoViewDismissButton.layer.backgroundColor = UIColor.blue.cgColor
-        
-        // // Set constraints for the dismiss button.
-        // NSLayoutConstraint.activate(
-        //     [infoViewDismissButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-        //      infoViewDismissButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20.0),
-        //      infoViewDismissButton.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-        //      infoViewDismissButton.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
-        //     ]
-        // )
         setupButton()
-
-        // // Configure and add the label
-        // infoViewLabel.translatesAutoresizingMaskIntoConstraints = false
-        // addSubview(infoViewLabel)
-        
-        // infoViewLabel.layer.cornerRadius = 5
-        // infoViewLabel.layer.backgroundColor = UIColor.purple.cgColor
-        // infoViewLabel.text = "Get 3 in a row to win!"
-        
-        // // Set constraints for the label.
-        // NSLayoutConstraint.activate(
-        //     [infoViewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-        //      infoViewLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60.0),
-        //      infoViewLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.8),
-        //      infoViewLabel.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3)
-        //     ]
-        // )
 
         setupLabel()
         
-        // Add dismiss button action
-        // infoViewDismissButton.addTarget(self, action: #selector(infoViewDismissButtonTapped), for: .touchUpInside)
-
     }
 
     private func configureViewAppearance() {
@@ -82,6 +38,7 @@ class InfoView: UIView {
         layer.shadowColor = UIColor.purple.cgColor
         layer.shadowRadius = 4
         layer.shadowOpacity = 0.2
+        layer.zPosition = 999 // for view to be on top
     }
 
         

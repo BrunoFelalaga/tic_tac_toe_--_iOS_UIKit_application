@@ -30,21 +30,14 @@ class ViewController: UIViewController {
     private let grid = Grid()
     private var pieceWidth: CGFloat!
     private var pieceFontSize: CGFloat!
+    private var squareSize: Int!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // configureInitialPieceProperties()
-        // setUpSquares()
-        // configureInfoButton() 
-        // setup squares, gesture recognizers and save starting piece positions
-        
         configureGameSetup()
         startNewGame()
-        // infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-        // infoStyleButton.tintColor = .blue
-        // infoStyleButton.addTarget(self, action: #selector(showGameInstructions(_:)), for: .touchUpInside) // Set up tap action for the info button
     }
 
     // Set up all configs before starting new game
@@ -55,17 +48,46 @@ class ViewController: UIViewController {
         setUpSquares()
         configureInfoButton()
     }
+    
+    
+    // Set up the tic-tac-toe grid squares
+    private func setUpSquares() {
+            let lineWidth: Int = 10 // Gap between squares
 
+            // get grid by tag. This was set 100 so we can find it in view controller class
+            if let myGridView = view.viewWithTag(100) {
+                
+                // square size by grid width
+                let squareSize = Int(myGridView.frame.width / 3)
+
+                // grid X na Y origins
+                let gridOriginX = Int(myGridView.frame.origin.x)
+                let gridOriginY = Int(myGridView.frame.origin.y)
+                
+                
+                for i in 0..<9 { // Place all 9 squares on 3X3 layout
+                    let row = i / 3
+                    let col = i % 3
+                    squares[i].frame = CGRect(x: gridOriginX + col * squareSize,
+                                              y: gridOriginY + row * squareSize ,
+                                              width: squareSize ,
+                                              height: squareSize)
+                    
+                    print("\(squares[i].frame.width)")
+                    squares[i].backgroundColor = .clear
+                    
+                }
+            }
+    }
+    
+    
     private func configureInitialPieceProperties() {
-//        if let myGridView = view.viewWithTag(100) {
-//            
-//            // square size by grid width
-//            let squareSize = Int(myGridView.frame.width / 3)
-//            
-//            self.pieceWidth = CGFloat(squareSize) //xLabel.frame.width)
-//            self.pieceFontSize = xLabel.font.pointSize
-//            print("\(String(describing: pieceWidth))")}
-        pieceWidth = 120
+        
+        if let myGridView = view.viewWithTag(100) {
+            
+            // square size by grid width
+            squareSize = Int(myGridView.frame.width / 3) }
+        pieceWidth = CGFloat(squareSize) // 120
         pieceFontSize = xLabel.font.pointSize
         xLabel.frame.size = CGSize(width: pieceWidth, height: pieceWidth)
         oLabel.frame.size = CGSize(width: pieceWidth, height: pieceWidth)
@@ -126,34 +148,7 @@ class ViewController: UIViewController {
             }}
     }
     
-    // Set up the tic-tac-toe grid squares
-    private func setUpSquares() {
-            let lineWidth: Int = 10 // Gap between squares
-
-            // get grid by tag. This was set 100 so we can find it in view controller class
-            if let myGridView = view.viewWithTag(100) {
-                
-                // square size by grid width
-                let squareSize = Int(myGridView.frame.width / 3)
-
-                // grid X na Y origins
-                let gridOriginX = Int(myGridView.frame.origin.x)
-                let gridOriginY = Int(myGridView.frame.origin.y)
-                
-                
-                for i in 0..<9 { // Place all 9 squares on 3X3 layout
-                    let row = i / 3
-                    let col = i % 3
-                    // Set positions such that the grid lines(lineWidth) are visible
-                    squares[i].frame = CGRect(x: gridOriginX + col * squareSize + (col > 0 ? lineWidth : 0),
-                                              y: gridOriginY + row * squareSize + (row > 0 ? lineWidth : 0),
-                                              width: squareSize - (col > 0 ? lineWidth+2 : 2),
-                                              height: squareSize - (row > 0 ? lineWidth+2 : 2))
-                    print("\(squares[i].frame.width)")
-                    
-                }
-            }
-    }
+ 
     
     
     // Set up gesture recognizers for dragging X and O pieces.
@@ -283,22 +278,6 @@ class ViewController: UIViewController {
         
     }
     
-    
-    @IBAction func showGameInstructionsXXX(_ sender: UIButton) {
-        infoView.displayMessage("""
-                                How to Play:
-                                1. Drag X or O piece onto thegrid
-                                2. Take turns placing pieces
-                                3. Get 3 consectuive pieces in a row or column or diagonal and you win!
-                                """, isLongMessage: true)
-        
-        infoView.center.y = -infoView.bounds.height // / 2
-        infoView.isHidden = false
-        
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
-            self.infoView.center.y = self.view.center.y
-        }
-    }
     
     // Show instructions and temporarily disable interactions
     @IBAction func showGameInstructions(_ sender: UIButton) {
