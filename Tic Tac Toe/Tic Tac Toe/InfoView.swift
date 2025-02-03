@@ -56,7 +56,7 @@ class InfoView: UIView {
         infoViewLabel.layer.backgroundColor = UIColor.purple.cgColor
         infoViewLabel.text = "Get 3 in a row to win!"
         
-        Set constraints for the label.
+        // Set constraints for the label.
         NSLayoutConstraint.activate(
             [infoViewLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
              infoViewLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -60.0),

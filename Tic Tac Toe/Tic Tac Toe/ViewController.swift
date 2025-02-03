@@ -35,18 +35,42 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pieceWidth = xLabel.frame.width
-        pieceFontSize = xLabel.font.pointSize
-        setUpSquares()
-        infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
-        infoStyleButton.tintColor = .blue
+        // configureInitialPieceProperties()
+        // setUpSquares()
+        // configureInfoButton() 
         // setup squares, gesture recognizers and save starting piece positions
+        
+        configureGameSetup()
+        startNewGame()
+        // infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        // infoStyleButton.tintColor = .blue
+        // infoStyleButton.addTarget(self, action: #selector(showGameInstructions(_:)), for: .touchUpInside) // Set up tap action for the info button
+    }
+
+    // Set up all configs before starting new game
+    private func configureGameSetup() {
         setupMyGestureRecognizers()
         saveStartingPositions()
-        startNewGame()
-        infoStyleButton.addTarget(self, action: #selector(showGameInstructions(_:)), for: .touchUpInside) // Set up tap action for the info button
+        configureInitialPieceProperties()
+        setUpSquares()
+        configureInfoButton()
     }
-    
+
+    private func configureInitialPieceProperties() {
+        pieceWidth = xLabel.frame.width
+        pieceFontSize = xLabel.font.pointSize
+    }
+
+    private func configureInfoButton() {
+        infoStyleButton.setImage(UIImage(systemName: "info.circle"), for: .normal)
+        infoStyleButton.tintColor = .blue
+        infoStyleButton.addTarget(
+            self,
+            action: #selector(showGameInstructions(_:)),
+            for: .touchUpInside
+        )
+    }
+
     // Start a new game by resetting the grid, 
     // setting the current player to X, resetting pieces, and animating the first move.
     private func startNewGame() {
