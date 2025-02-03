@@ -57,8 +57,18 @@ class ViewController: UIViewController {
     }
 
     private func configureInitialPieceProperties() {
-        pieceWidth = xLabel.frame.width
+//        if let myGridView = view.viewWithTag(100) {
+//            
+//            // square size by grid width
+//            let squareSize = Int(myGridView.frame.width / 3)
+//            
+//            self.pieceWidth = CGFloat(squareSize) //xLabel.frame.width)
+//            self.pieceFontSize = xLabel.font.pointSize
+//            print("\(String(describing: pieceWidth))")}
+        pieceWidth = 120
         pieceFontSize = xLabel.font.pointSize
+        xLabel.frame.size = CGSize(width: pieceWidth, height: pieceWidth)
+        oLabel.frame.size = CGSize(width: pieceWidth, height: pieceWidth)
     }
 
     private func configureInfoButton() {
@@ -118,7 +128,7 @@ class ViewController: UIViewController {
     
     // Set up the tic-tac-toe grid squares
     private func setUpSquares() {
-            let lineWidth: Int = 5 // Gap between squares
+            let lineWidth: Int = 10 // Gap between squares
 
             // get grid by tag. This was set 100 so we can find it in view controller class
             if let myGridView = view.viewWithTag(100) {
@@ -127,18 +137,19 @@ class ViewController: UIViewController {
                 let squareSize = Int(myGridView.frame.width / 3)
 
                 // grid X na Y origins
-                let gOX = Int(myGridView.frame.origin.x)
-                let gOY = Int(myGridView.frame.origin.y)
+                let gridOriginX = Int(myGridView.frame.origin.x)
+                let gridOriginY = Int(myGridView.frame.origin.y)
                 
                 
                 for i in 0..<9 { // Place all 9 squares on 3X3 layout
                     let row = i / 3
                     let col = i % 3
                     // Set positions such that the grid lines(lineWidth) are visible
-                    squares[i].frame = CGRect(x: gOX + col * squareSize + (col > 0 ? lineWidth : 0),
-                                              y: gOY + row * squareSize + (row > 0 ? lineWidth : 0),
-                                              width: squareSize - (col > 0 ? lineWidth : 0),
-                                              height: squareSize - (row > 0 ? lineWidth : 0))
+                    squares[i].frame = CGRect(x: gridOriginX + col * squareSize + (col > 0 ? lineWidth : 0),
+                                              y: gridOriginY + row * squareSize + (row > 0 ? lineWidth : 0),
+                                              width: squareSize - (col > 0 ? lineWidth+2 : 2),
+                                              height: squareSize - (row > 0 ? lineWidth+2 : 2))
+                    print("\(squares[i].frame.width)")
                     
                 }
             }
@@ -147,6 +158,8 @@ class ViewController: UIViewController {
     
     // Set up gesture recognizers for dragging X and O pieces.
     private func setupMyGestureRecognizers() {
+        xLabel.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.7, alpha: 1.0)
+        oLabel.backgroundColor = UIColor(red: 0.7, green: 0.15, blue: 0.15, alpha: 1.0)
         // enable user interaction for both labels
         xLabel.isUserInteractionEnabled = true
         oLabel.isUserInteractionEnabled = true
@@ -338,8 +351,11 @@ class ViewController: UIViewController {
         // Create and position new piece for next turn
         if currentPlayer == .x {
             xLabel = createNewPiece(text: "X", at: startXCenter)
+            xLabel.backgroundColor = UIColor(red: 0.15, green: 0.15, blue: 0.7, alpha: 1.0)
         } else {
             oLabel = createNewPiece(text: "O", at: startOCenter)
+            oLabel.backgroundColor = UIColor(red: 0.7, green: 0.15, blue: 0.15, alpha: 1.0)
+            
         }
         
         currentPlayer = currentPlayer == .x ? .o : .x
@@ -363,6 +379,7 @@ class ViewController: UIViewController {
         newPiece.font = .systemFont(ofSize: pieceFontSize, weight: .bold)
         newPiece.frame.size = CGSize(width: pieceWidth, height: pieceWidth) // Match original label size
         newPiece.center = center
+        
         
         // Add pan gesture recognizer to allow dragging.
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(_:)))
