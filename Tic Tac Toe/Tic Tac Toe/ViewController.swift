@@ -16,6 +16,8 @@ enum Player {
     
 }
 class ViewController: UIViewController {
+    
+    var previousInteractionState: Bool = true // ---------
     @IBOutlet var squares: [UIView]! //{
 //        didSet {
 //            print("Connected sss: \(squares.count)")
@@ -286,8 +288,15 @@ class ViewController: UIViewController {
         infoView.isHidden = false
         
 //        view.window?.isUserInteractionEnabled = false  // Add this line
-        view.isUserInteractionEnabled = false
-        infoView.isUserInteractionEnabled = true // ---
+//        view.isUserInteractionEnabled = false
+//        infoView.isUserInteractionEnabled = true // ---
+        
+        
+        // Disable interactions
+        squares.forEach { $0.isUserInteractionEnabled = false }
+        xLabel.isUserInteractionEnabled = false
+        oLabel.isUserInteractionEnabled = false
+        
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y
         }
@@ -295,7 +304,8 @@ class ViewController: UIViewController {
     }
     
     
-    @IBAction func showGameInstructions(_ sender: UIButton) {
+    @IBAction func showGameInstructionsXXX(_ sender: UIButton) {
+//        previousInteractionState = view.isUserInteractionEnabled
         infoView.displayMessage("""
                                 How to Play:
                                 1. Drag X or O piece onto thegrid
@@ -307,13 +317,36 @@ class ViewController: UIViewController {
         infoView.isHidden = false
         
 //        view.window?.isUserInteractionEnabled = false  // Add this line
-        view.isUserInteractionEnabled = false
-        infoView.isUserInteractionEnabled = true // ---
-        infoView.infoViewDismissButton.isUserInteractionEnabled = true
+//        view.isUserInteractionEnabled = false
+//        infoView.isUserInteractionEnabled = true // ---
+//        infoView.infoViewDismissButton.isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
             self.infoView.center.y = self.view.center.y
         }
     }
+    
+    @IBAction func showGameInstructions(_ sender: UIButton) {
+        infoView.displayMessage("""
+                                    How to Play:
+                                    1. Drag X or O piece onto thegrid
+                                    2. Take turns placing pieces
+                                    3. Get 3 consectuive pieces in a row or column or diagonal and you win!
+                                    """, isLongMessage: true)
+        
+        infoView.center.y = -infoView.bounds.height
+        infoView.isHidden = false
+        
+        // Disable interactions
+        squares.forEach { $0.isUserInteractionEnabled = false }
+        xLabel.isUserInteractionEnabled = false
+        oLabel.isUserInteractionEnabled = false
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.5) {
+            self.infoView.center.y = self.view.center.y
+        }
+    }
+    
+    
     
     
     
