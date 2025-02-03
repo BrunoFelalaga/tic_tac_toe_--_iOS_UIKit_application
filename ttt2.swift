@@ -324,3 +324,59 @@ private func handleWin(_ winner: Player) {
         showGameOver(message: message)
     }
 }
+
+
+
+
+class Grid {
+    // gridView.frame = CGRect(x: x, y: y, width: width, height: height)
+    private var squares: [Player] = Array(repeating: .none, count: 9)
+    private let winningCombinations = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns
+        [0, 4, 8], [2, 4, 6]              // Diagonals
+    ]
+    
+    func isSquareEmpty(at index: Int) -> Bool {
+        return squares[index] == .none
+    }
+    
+    func markSquare(at index: Int, for player: Player) {
+        squares[index] = player
+    }
+    
+    func checkWinner() -> Player? {
+        for combination in winningCombinations {
+            let first = squares[combination[0]]
+            let second = squares[combination[1]]
+            let third = squares[combination[2]]
+            
+            if first != .none && first == second && second == third {
+                return first
+            }
+        }
+        return nil
+    }
+    
+    func getWinningCombination() -> [Int]? {
+        for combination in winningCombinations {
+            let first = squares[combination[0]]
+            let second = squares[combination[1]]
+            let third = squares[combination[2]]
+            
+            if first != .none && first == second && second == third {
+                return combination
+            }
+        }
+        return nil
+    }
+    
+    func isTie() -> Bool {
+        return !squares.contains(.none) && checkWinner() == nil
+    }
+    
+    func reset() {
+        squares = Array(repeating: .none, count: 9)
+    }
+}
+
