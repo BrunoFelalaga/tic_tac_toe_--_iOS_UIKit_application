@@ -73,7 +73,7 @@ class InfoView: UIView {
 //        addSubview(infoViewDismissButton)
     }
     
-    @objc private func infoViewDismissButtonTapped() {
+    @objc private func infoViewDismissButtonTappedxxx() {
         let screenHeight = UIScreen.main.bounds.height
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
             self.frame.origin.y = screenHeight
@@ -82,9 +82,40 @@ class InfoView: UIView {
             self.frame.origin.y = -self.frame.height
             self.isHidden = true
 //            self.window?.isUserInteractionEnabled = true //---
-            self.superview?.isUserInteractionEnabled = true //
+//            self.superview?.isUserInteractionEnabled = true //
+            
+//            if let viewController = self.superview as? ViewController {
+//                viewController.view.isUserInteractionEnabled = viewController.previousInteractionState
+//            }
         }
     }
+    
+    
+    
+    @objc private func infoViewDismissButtonTapped() {
+        let screenHeight = UIScreen.main.bounds.height
+        
+        // Get reference to view controller's view
+        if let viewController = self.superview as? UIView {
+            // Re-enable interactions for game pieces and squares
+            viewController.subviews.forEach { view in
+                if view.tag >= 0 && view.tag <= 8 { // Square views
+                    view.isUserInteractionEnabled = true
+                } else if let label = view as? UILabel,
+                          label.text == "X" || label.text == "O" {
+                    label.isUserInteractionEnabled = true
+                }
+            }
+        }
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn) {
+            self.frame.origin.y = screenHeight
+        } completion: { _ in
+            self.frame.origin.y = -self.frame.height
+            self.isHidden = true
+        }
+    }
+    
     
 //    @objc private func infoViewDismissButtonTapped() {
 //        let screenHeight = UIScreen.main.bounds.height
