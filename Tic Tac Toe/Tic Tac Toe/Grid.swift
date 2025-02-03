@@ -5,6 +5,7 @@
 //  Created by Bruno Felalaga on 2/2/25.
 //
 
+
 class Grid {
     
     private var squares: [Player] = Array(repeating: .none, count: 9)
