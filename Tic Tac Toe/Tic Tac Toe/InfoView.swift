@@ -75,7 +75,24 @@ class InfoView: UIView {
             self.frame.origin.y = -self.frame.height}
     }
     
-    
+//    @objc private func infoViewDismissButtonTapped() {
+//        let screenHeight = UIScreen.main.bounds.height
+//        
+//        let animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.8) {
+//            self.center.y = screenHeight + self.frame.height/2
+//            self.transform = CGAffineTransform(rotationAngle: .pi/8)
+//        }
+//        
+//        print("hehehe")
+//        animator.addCompletion { _ in
+//            self.dismissHandler?()
+//            self.transform = .identity
+//            self.frame.origin.y = -self.frame.height
+//        }
+//        
+//        animator.startAnimation()
+//    }
+        
     public func displayMessage(_ message: String) {
         infoViewLabel.text = message
     }
